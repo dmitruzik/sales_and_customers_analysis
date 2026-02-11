@@ -1,0 +1,22 @@
+-- CHANGE OVER TIME
+-- Total sales by year
+SELECT 
+EXTRACT(YEAR FROM order_date) as order_year,
+SUM(sales_amount) AS total_sales,
+COUNT(DISTINCT customer_key) AS total_customers
+FROM gold.fact_sales
+WHERE order_date IS NOT NULL
+GROUP BY order_year
+ORDER BY order_year;
+
+-- Total sales by month and year
+
+SELECT 
+EXTRACT(YEAR FROM order_date) as order_year,
+EXTRACT(MONTH FROM order_date) as order_month,
+SUM(sales_amount) AS total_sales,
+COUNT(DISTINCT customer_key) AS total_customers
+FROM gold.fact_sales
+WHERE order_date IS NOT NULL
+GROUP BY order_year, order_month
+ORDER BY order_year, order_month;
